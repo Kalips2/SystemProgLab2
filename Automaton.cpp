@@ -30,7 +30,7 @@ Automaton initialize_automation(const std::string& path) {
     int from, to;
     char transitionChar;
     while (file >> from >> transitionChar >> to) {
-        automaton.transitions[from][transitionChar] = to;
+        automaton.transitions[from][transitionChar].insert(to);
     }
 
     file.close();

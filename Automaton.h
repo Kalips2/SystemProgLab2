@@ -14,7 +14,7 @@ struct Automaton {
     int startState;
     int size_final_states;
     std::vector<int> finalStates;
-    std::map<int, std::map<char, int>> transitions;
+    std::map<int, std::map<char, std::set<int>>> transitions;
 
     [[nodiscard]] std::set<int> get_all_states() const {
         std::set<int> all_states;
@@ -34,7 +34,7 @@ struct Automaton {
             reachable_states.insert(new_reachable_states.begin(), new_reachable_states.end());
             for (int state: reachable_states) {
                 for (const auto &entry: transitions[state]) {
-                    new_reachable_states.insert(entry.second);
+                    new_reachable_states.insert(entry.second.begin(), entry.second.end());
                 }
             }
         }  while (reachable_states != new_reachable_states && !new_reachable_states.empty());
@@ -66,7 +66,7 @@ struct Automaton {
             for (int state: non_dead_states) {
                 for (const auto &entry: transitions) {
                     for (const auto &transition: entry.second) {
-                        if (transition.second == state) {
+                        if (transition.second.count(state) != 0) {
                             new_non_dead_states.insert(entry.first);
                             break;
                         }

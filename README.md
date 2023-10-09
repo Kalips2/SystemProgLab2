@@ -32,5 +32,7 @@ s a s'                              - Все такі трійки, що пер�
 ### automata3.txt
 ![img.png](images/automata3.png)
 
+### automata4.txt (non-deterministic)
+![img.png](images/automata4.png)
 
 
